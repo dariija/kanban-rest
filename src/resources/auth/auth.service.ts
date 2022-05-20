@@ -12,17 +12,17 @@ export class AuthService {
   constructor(@InjectRepository(User) private usersRepository: Repository<User>) {}
 
   async signin(body: SigninUserDto): Promise<{ token: string }> {
-    const user = await this.usersRepository.findOne({ select: ['id', 'password'], where: { login: body.login } });
+    const user = await this.usersRepository.findOne({ select: ['id', 'name', 'password'], where: { login: body.login } });
     if (!user) {
       throw new HttpException('User was not founded!', HttpStatus.FORBIDDEN);
     }
 
     const match = await bcrypt.compare(body.password, user.password);
     if (!match) {
-      throw new HttpException('User was not founded!', HttpStatus.FORBIDDEN);
+      throw new HttpException('Invalid password', HttpStatus.FORBIDDEN);
     }
 
-    const token = jwt.sign({ userId: user.id, login: body.login }, process.env.JWT_SECRET_KEY as string);
+    const token = jwt.sign({ id: user.id, name: user.name, login: body.login }, process.env.JWT_SECRET_KEY as string);
 
     return { token };
   }
