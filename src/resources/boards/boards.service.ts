@@ -41,6 +41,8 @@ export class BoardsService {
         'tasks.order',
         'tasks.description',
         'tasks.userId',
+        'tasks.boardId',
+        'tasks.columnId',
         'files.filename',
         'files.fileSize',
       ])
@@ -58,6 +60,7 @@ export class BoardsService {
     const board = new Board();
     board.title = boardDto.title;
     board.description = boardDto.description;
+    board.columns = [];
     const modelBoard = await this.boardsRepository.save(board);
     return modelBoard;
   }

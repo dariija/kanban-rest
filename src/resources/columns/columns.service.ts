@@ -46,6 +46,8 @@ export class ColumnsService {
         'tasks.order',
         'tasks.description',
         'tasks.userId',
+        'tasks.boardId',
+        'tasks.columnId',
         'files.filename',
         'files.fileSize',
       ])
@@ -70,10 +72,10 @@ export class ColumnsService {
 
     const autoOrder = columns.length ? columns[0].order + 1 : 1;
 
-    const { id, title, order } = await this.columnsRepository
-      .create({ ...columnDto, order: autoOrder, boardId })
+    const { id, title, order, tasks } = await this.columnsRepository
+      .create({ ...columnDto, order: autoOrder, boardId, tasks: [] })
       .save();
-    return { id, title, order };
+    return { id, title, order, tasks };
   }
 
   async remove(boardId: UUIDType, columnId: UUIDType): Promise<void> {

@@ -8,6 +8,7 @@ export interface IColumn {
   id: UUIDType;
   title: string;
   order: number;
+  tasks: Task[];
 }
 
 /**

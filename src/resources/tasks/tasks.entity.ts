@@ -24,6 +24,7 @@ export interface ITask {
   board: string;
   boardId: string | null;
   columnId: string | null;
+  files: File[];
 }
 
 @Entity('tasks')

@@ -80,7 +80,7 @@ export class TasksService {
     })) as Task[];
     const autoOrder = task.length ? task[0].order + 1 : 1;
 
-    const modelTask = await this.tasksRepository.create({ ...taskDto, columnId, order: autoOrder, boardId }).save();
+    const modelTask = await this.tasksRepository.create({ ...taskDto, columnId, order: autoOrder, boardId, files: [] }).save();
     return modelTask;
   }
 

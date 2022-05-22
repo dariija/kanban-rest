@@ -10,11 +10,13 @@ export interface IColumn {
   id: UUIDType;
   title: string;
   order: number;
+  tasks: Task[];
 }
 export interface IBoard {
   id: UUIDType;
   title: string;
   description: string;
+  columns: CreateColumnDto[];
 }
 
 /**
